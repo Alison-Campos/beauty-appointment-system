@@ -1,0 +1,7 @@
+CREATE TABLE Servicios (
+IdServicio INT IDENTITY PRIMARY KEY,
+DuracionMin INT NOT NULL,
+Precio DECIMAL(10,2),
+ColorCalendario NVARCHAR(20),
+Activo BIT DEFAULT 1
+);

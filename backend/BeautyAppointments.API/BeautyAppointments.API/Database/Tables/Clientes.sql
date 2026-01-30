@@ -1,0 +1,8 @@
+Create Table Clientes (
+IdCliente INT IDENTITY PRIMARY KEY,
+Nombre NVARCHAR(100) NOT NULL,
+Telefono NVARCHAR(20),
+Email NVARCHAR(150),
+Notas NVARCHAR(255),
+FechaCreacionCliente DATETIME DEFAULT GETDATE()
+);
