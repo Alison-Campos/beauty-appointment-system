@@ -3,6 +3,8 @@ CREATE PROCEDURE sp_Usuarios_Eliminar
 AS
 BEGIN
     UPDATE Usuarios
-    SET Activo = 0
+	SET Activo = 0
     WHERE IdUsuario = @IdUsuario;
+
+    SELECT @@ROWCOUNT;
 END
