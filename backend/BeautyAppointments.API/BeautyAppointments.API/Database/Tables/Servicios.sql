@@ -1,5 +1,6 @@
 CREATE TABLE Servicios (
 	IdServicio INT IDENTITY PRIMARY KEY,
+	Nombre NVARCHAR(100) NOT NULL,
 	DuracionMin INT NOT NULL,
 	Precio DECIMAL(10,2),
 	ColorCalendario NVARCHAR(20),

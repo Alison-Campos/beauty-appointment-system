@@ -17,13 +17,13 @@ namespace BeautyAppointments.API.Controllers
             _usuarioRepository = usuarioRepository;
         }
 
-        [HttpGet("UsuariosObtenerTodos")]
+        [HttpGet("UsuarioObtenerTodos")]
         public async Task<IActionResult> UsuarioObtenerTodos()
         {
             return Ok(await _usuarioRepository.UsuarioObtenerTodos());
         }
 
-        [HttpGet("UsuariosObtenerPorId/{id}")]
+        [HttpGet("UsuarioObtenerPorId/{id}")]
         public async Task<IActionResult> UsuarioObetenerPorId(int id)
         {
             var usuario = await _usuarioRepository.UsuarioObtenerPorId(id);
@@ -31,15 +31,15 @@ namespace BeautyAppointments.API.Controllers
             return Ok(usuario);
         }
 
-        [HttpPost("UsuariosCrear")]
-        public async Task<IActionResult> UsuariosCrear([FromBody] Usuario usuario)
+        [HttpPost("UsuarioCrear")]
+        public async Task<IActionResult> UsuarioCrear([FromBody] Usuario usuario)
         {
             var id = await _usuarioRepository.UsuarioCrear(usuario);
             return Ok(new { IdUsuario = id });
         }
 
         //Arreglar
-        [HttpPut("UsuariosActualizar/{id}")]
+        [HttpPut("UsuarioActualizar/{id}")]
         public async Task<IActionResult> UsuarioActualizar( int id, [FromBody] UsuarioActualizarDto usuario)
         {
             var actualizado = await _usuarioRepository.UsuarioActualizar(id, usuario);
@@ -50,8 +50,8 @@ namespace BeautyAppointments.API.Controllers
             return NoContent();
         }
 
-        [HttpDelete("UsuariosEliminar/{id}")]
-        public async Task<IActionResult> UsuariosEliminar(int id)
+        [HttpDelete("UsuarioEliminar/{id}")]
+        public async Task<IActionResult> UsuarioEliminar(int id)
         {
             var eliminado = await _usuarioRepository.UsuarioEliminar(id);
 

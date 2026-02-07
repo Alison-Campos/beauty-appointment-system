@@ -4,6 +4,7 @@ AS
 BEGIN
 	SELECT
 		IdServicio,
+		Nombre,
 		DuracionMin,
 		Precio,
 		ColorCalendario,

@@ -13,7 +13,7 @@ builder.Services.AddSwaggerGen();
 //
 //builder.Services.AddScoped<Usuario>();
 builder.Services.AddScoped<UsuarioRepository>();
-
+builder.Services.AddScoped<ServicioRepository>();
 
 var app = builder.Build();
 
