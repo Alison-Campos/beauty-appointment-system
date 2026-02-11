@@ -27,8 +27,7 @@ namespace BeautyAppointments.API.Controllers
         public async Task<IActionResult> UsuarioObetenerPorId(int id)
         {
             var usuario = await _usuarioRepository.UsuarioObtenerPorId(id);
-            if (usuario == null) return NotFound($"No existe un usuario con el id {id}");
-            return Ok(usuario);
+            return usuario == null ? NotFound($"No existe un usuario con el id {id}") : Ok(usuario);
         }
 
         [HttpPost("UsuarioCrear")]
@@ -43,22 +42,15 @@ namespace BeautyAppointments.API.Controllers
         public async Task<IActionResult> UsuarioActualizar( int id, [FromBody] UsuarioActualizarDto usuario)
         {
             var actualizado = await _usuarioRepository.UsuarioActualizar(id, usuario);
-
-            if (!actualizado)
-                return NotFound($"No existe un usuario con el id {id}");
-
-            return NoContent();
+            return actualizado ? NoContent() : NotFound($"No existe un usuario con el id {id}");
         }
 
         [HttpDelete("UsuarioEliminar/{id}")]
         public async Task<IActionResult> UsuarioEliminar(int id)
         {
             var eliminado = await _usuarioRepository.UsuarioEliminar(id);
+            return eliminado ? NoContent() : NotFound($"No existe un usuario con el id {id}");
 
-            if (!eliminado)
-                return NotFound($"No existe un usuario con el id {id}");
-
-            return NoContent();
         }
     }
 }
