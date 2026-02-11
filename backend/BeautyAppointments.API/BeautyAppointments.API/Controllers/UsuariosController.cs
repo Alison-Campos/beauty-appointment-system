@@ -27,7 +27,7 @@ namespace BeautyAppointments.API.Controllers
         public async Task<IActionResult> UsuarioObetenerPorId(int id)
         {
             var usuario = await _usuarioRepository.UsuarioObtenerPorId(id);
-            if (usuario == null) return NotFound();
+            if (usuario == null) return NotFound($"No existe un usuario con el id {id}");
             return Ok(usuario);
         }
 

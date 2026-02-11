@@ -27,8 +27,7 @@ namespace BeautyAppointments.API.Controllers
         public async Task<IActionResult> ServicioObtenerPorId(int id)
         {
             var servicio = await _repository.ServicioObtenerPorId(id);
-            if (servicio == null) return NotFound();
-            return Ok(servicio);
+            return servicio == null ? NotFound($"No existe un servicio con el id {id}")): Ok(servicio);
         }
 
         [HttpPost("ServicioCrear")]
@@ -42,15 +41,14 @@ namespace BeautyAppointments.API.Controllers
         public async Task<IActionResult> ServicioActualizar(int id, [FromBody] ServicioActualizarDto servicio)
         {
             var actualizado = await _repository.ServicioActualizar(id, servicio);
-            if (!actualizado) return NotFound();
-            return NoContent();
+            return actualizado ? NoContent() : NotFound($"No existe un servicio con el id {id}");
         }
 
         [HttpDelete("ServicioEliminar/{id}")]
         public async Task<IActionResult> ServicioEliminar(int id)
         {
             var eliminado = await _repository.ServicioEliminar(id);
-            if (!eliminado) return NotFound();
+            if (!eliminado) return NotFound($"No existe un servicio con el id {id}");
             return NoContent();
         }
     }

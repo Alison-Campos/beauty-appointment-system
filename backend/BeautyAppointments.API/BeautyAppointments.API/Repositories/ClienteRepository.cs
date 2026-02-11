@@ -36,7 +36,7 @@ namespace BeautyAppointments.API.Repositories
             );
         }
 
-        public async Task<Cliente?> ObtenerPorId(int id)
+        public async Task<Cliente?> ClientesObtenerPorId(int id)
         {
             using var connection = new SqlConnection(_connectionString);
             return await connection.QueryFirstOrDefaultAsync<Cliente>(
@@ -51,7 +51,7 @@ namespace BeautyAppointments.API.Repositories
             using var connection = new SqlConnection(_connectionString);
 
             var rows = await connection.ExecuteScalarAsync<int>(
-            "sp_Servicio_Actualizar",
+            "sp_Clientes_Actualizar",
                 new
                 {
                     IdCliente = id,
