@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Database\StoredProcedures\Citas\" />
     <Folder Include="Database\StoredProcedures\Clientes\" />
     <Folder Include="Database\StoredProcedures\Servicios\" />
     <Folder Include="Database\StoredProcedures\Usuarios\" />
