@@ -15,6 +15,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<UsuarioRepository>();
 builder.Services.AddScoped<ServicioRepository>();
 builder.Services.AddScoped<ClienteRepository>();
+builder.Services.AddScoped<CitaRepository>();
+
 
 var app = builder.Build();
 

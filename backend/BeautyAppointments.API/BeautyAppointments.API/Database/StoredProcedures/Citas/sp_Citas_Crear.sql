@@ -4,8 +4,7 @@ CREATE PROCEDURE sp_Citas_Crear
 	@UsuarioId INT,
 	@FechaInicio DATETIME,
 	@FechaFin DATETIME,
-	@Observaciones NVARCHAR(255),
-	@FechaCreacionCita DATETIME
+	@Observaciones NVARCHAR(255)
 
 AS
 BEGIN
@@ -16,7 +15,8 @@ BEGIN
 		UsuarioId,
 		FechaInicio,
 		FechaFin,
-		Observaciones
+		Observaciones,
+		FechaCreacionCita
 	)
 	VALUES
 	(
@@ -25,7 +25,8 @@ BEGIN
 		@UsuarioId,
 		@FechaInicio,
 		@FechaFin,
-		@Observaciones
+		@Observaciones,
+		GETDATE()
 	);
 
 	SELECT SCOPE_IDENTITY();

@@ -76,12 +76,12 @@ namespace BeautyAppointments.API.Repositories
             return rows > 0;
         }
 
-        public async Task<bool> Eliminar(int id)
+        public async Task<bool> CitaEliminar(int id)
         {
             using var connection = new SqlConnection(_connectionString);
 
             var rows = await connection.ExecuteScalarAsync<int>(
-                "sp_Cita_Eliminar",
+                "sp_Citas_Eliminar",
                 new { IdCita = id },
                 commandType: CommandType.StoredProcedure
             );
