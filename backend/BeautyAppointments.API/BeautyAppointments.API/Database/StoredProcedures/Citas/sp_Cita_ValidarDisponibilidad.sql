@@ -12,8 +12,8 @@ BEGIN
         WHERE UsuarioId = @UsuarioId
         AND Activo = 1
         AND (@IdCita IS NULL OR IdCita <> @IdCita)
-        AND @FechaInicio < FechaHoraFin -- Empiezas antes de que termine la otra
-        AND @FechaFin > FechaHoraInicio -- Termina después del inicio de otra
+        AND @FechaInicio < FechaFin -- Empieza antes de que termine la otra
+        AND @FechaFin > FechaInicio -- Termina después del inicio de otra
     )
         SELECT 0 -- NO disponible
     ELSE

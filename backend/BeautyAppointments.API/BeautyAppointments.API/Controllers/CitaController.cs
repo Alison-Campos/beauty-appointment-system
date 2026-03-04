@@ -34,13 +34,67 @@ namespace BeautyAppointments.API.Controllers
         [HttpPost("CitaCrear")]
         public async Task<IActionResult> CitaCrear([FromBody] CitaCrearDto cita)
         {
+            var errores = new Dictionary<string, string>();
+
+            if (!await _repo.ClienteExiste(cita.ClienteId))
+                errores.Add("clienteId", "El cliente no existe");
+
+            if (!await _repo.UsuarioExiste(cita.UsuarioId))
+                errores.Add("usuarioId", "El usuario no existe");
+
+            if (!await _repo.ServicioExiste(cita.ServicioId))
+                errores.Add("servicioId", "El servicio no existe");
+
+            if (errores.Any())
+            {
+                return BadRequest(new
+                {
+                    success = false,
+                    errors = errores
+                });
+            }
+
+            var disponible = await _repo.ValidarDisponibilidad(
+                cita.UsuarioId,
+                cita.FechaInicio,
+                cita.FechaFin
+            );
+
+            if (!disponible)
+            {
+                errores.Add("disponibilidad", "La estilista ya tiene una cita en ese horario");
+
+                return BadRequest(new
+                {
+                    success = false,
+                    errors = errores
+                    
+                });
+            }
+
+
             var id = await _repo.CitaCrear(cita);
-            return Ok(new { IdCita = id });
+
+            return Ok(new
+            {
+                success = true,
+                data = new { IdCita = id }
+            });
         }
 
-        [HttpPut("CitaActualizar")]
+        [HttpPut("CitaActualizar/{id}")]
         public async Task<IActionResult> CitaActualizar(int id, [FromBody] CitasActualizarDto cita)
         {
+            var disponible = await _repo.ValidarDisponibilidad(
+                   cita.UsuarioId,
+                   cita.FechaInicio,
+                   cita.FechaFin,
+                   id
+               );
+
+            if(!disponible)
+                return BadRequest("La estilista ya tiene una cita en ese horario");
+
             var actualizado = await _repo.CitaActualizar(id, cita);
             return actualizado ? NoContent() : NotFound($"No existe una cita con el id {id}");
         }

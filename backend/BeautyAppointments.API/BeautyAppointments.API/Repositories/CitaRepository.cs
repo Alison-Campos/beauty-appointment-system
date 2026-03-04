@@ -89,5 +89,56 @@ namespace BeautyAppointments.API.Repositories
             return rows > 0;
         }
 
+        public async Task<bool> ValidarDisponibilidad( int idUsuario, DateTime inicio, DateTime fin, int? idCita = null)
+        {
+            using var connection = new SqlConnection( _connectionString);
+
+            var disponible = await connection.ExecuteScalarAsync<int>(
+                "sp_Cita_ValidarDisponibilidad",
+                new
+                {
+                    UsuarioId = idUsuario,
+                    FechaInicio = inicio,
+                    FechaFin = fin,
+                    IdCita = idCita,
+                },
+                commandType: CommandType.StoredProcedure
+             );
+
+            return disponible == 1;
+        }
+
+        public async Task<bool> ClienteExiste(int id)
+        {
+            using var connection = new SqlConnection(_connectionString);
+
+            var result = await connection.ExecuteScalarAsync<int>(
+                "SELECT COUNT(1) FROM dbo.Clientes WHERE IdCliente = @IdCliente",
+                new { IdCliente = id}
+            );
+            return result > 0;
+        }
+
+        public async Task<bool> ServicioExiste(int id)
+        {
+            using var connection = new SqlConnection(_connectionString);
+
+            var result = await connection.ExecuteScalarAsync<int>(
+                "SELECT COUNT(1) FROM dbo.Servicios WHERE IdServicio = @IdServicio",
+                new { IdServicio = id }
+            );
+            return result > 0;
+        }
+
+        public async Task<bool> UsuarioExiste(int id)
+        {
+            using var connection = new SqlConnection(_connectionString);
+
+            var result = await connection.ExecuteScalarAsync<int>(
+                "SELECT COUNT(1) FROM dbo.Usuarios WHERE IdUsuario = @IdUsuario",
+                new { IdUsuario = id }
+            );
+            return result > 0;
+        }
     }
 }
