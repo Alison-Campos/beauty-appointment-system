@@ -34,8 +34,16 @@ namespace BeautyAppointments.API.Controllers
         [HttpPost("ServicioCrear")]
         public async Task<IActionResult> ServicioCrear([FromBody] ServicioCrearDto servicio)
         {
-            var id = await _repository.ServicioCrear(servicio);
-            return Ok(new { IdServicio = id });
+            try
+            {
+                var id = await _repository.ServicioCrear(servicio);
+                return Ok(new { IdServicio = id });
+            }
+            catch (Exception ex) 
+            {
+                return BadRequest(new { mensaje = "Ya existe un servicio con ese nombre" });
+            }
+            
         }
 
         [HttpPut("ServicioActualizar/{id}")]
